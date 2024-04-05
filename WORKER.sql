@@ -1,0 +1,55 @@
+CREATE DATABASE Office;
+
+USE Office;
+
+CREATE TABLE Worker (
+    WORKER_ID CHAR(3) PRIMARY KEY,
+    FIRST_NAME VARCHAR(50),
+    LAST_NAME VARCHAR(50),
+    SALARY INT,
+    JOINING_DATE DATETIME,
+    DEPARTMENT VARCHAR(20)
+);
+
+INSERT INTO Worker VALUES 
+('001', 'Monika', 'Arora', 100000, '2014-02-20 09:00:00', 'HR'),
+('002', 'Niharika', 'Verma', 80000, '2014-06-11 09:00:00', 'Admin'),
+('003', 'Vishal', 'Singhal', 300000, '2014-02-20 09:00:00', 'HR'),
+('004', 'Amitabh', 'Singh', 500000, '2014-02-20 09:00:00', 'Admin'),
+('005', 'Vivek', 'Bhati', 500000, '2014-06-11 09:00:00', 'Admin'),
+('006', 'Vipul', 'Diwan', 200000, '2014-06-11 09:00:00', 'Account'),
+('007', 'Satish', 'Kumar', 75000, '2014-01-20 09:00:00', 'Account'),
+('008', 'Geetika', 'Chauhan', 90000, '2014-04-11 09:00:00', 'Admin');
+
+CREATE TABLE Bonus (
+    BONUS_ID INT AUTO_INCREMENT PRIMARY KEY,
+    WORKER_REF_ID CHAR(3),
+    BONUS_DATE DATETIME,
+    BONUS_AMOUNT INT,
+    FOREIGN KEY (WORKER_REF_ID) REFERENCES Worker(WORKER_ID)
+    );
+    
+INSERT INTO Bonus (WORKER_REF_ID, BONUS_DATE, BONUS_AMOUNT) VALUES 
+('001', '2016-02-20 00:00:00', 5000),
+('002', '2016-06-11 00:00:00', 3000),
+('003', '2016-02-20 00:00:00', 4000),
+('001', '2016-02-20 00:00:00', 4500),
+('002', '2016-06-11 00:00:00', 3500);
+
+CREATE TABLE Title (
+    TITLE_ID INT AUTO_INCREMENT PRIMARY KEY,
+    WORKER_REF_ID CHAR(3),
+    WORKER_TITLE VARCHAR(20),
+    AFFECTED_FROM DATETIME,
+    FOREIGN KEY (WORKER_REF_ID) REFERENCES Worker(WORKER_ID)
+);
+
+INSERT INTO Title (WORKER_REF_ID, WORKER_TITLE, AFFECTED_FROM) VALUES 
+('001', 'Manager', '2016-02-20 00:00:00'),
+('002', 'Executive', '2016-06-11 00:00:00'),
+('008', 'Executive', '2016-06-11 00:00:00'),
+('005', 'Manager', '2016-06-11 00:00:00'),
+('004', 'Asst. Manager', '2016-06-11 00:00:00'),
+('007', 'Executive', '2016-06-11 00:00:00'),
+('006', 'Lead', '2016-06-11 00:00:00'),
+('003', 'Lead', '2016-06-11 00:00:00');
